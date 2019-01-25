@@ -7,6 +7,7 @@ package com.nanourl.dao;
  */
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -36,4 +37,7 @@ public interface ReportDao extends JpaRepository<Report, Integer> {
 	@Transactional
 	@Query(value = "UPDATE nanourl.reports SET num_total_clicks=num_total_clicks+1 WHERE created_at >= curdate()", nativeQuery = true)
 	public void updateTotalClicks();
+
+	@Query(value = "SELECT * FROM nanourl.reports WHERE DATE(created_at) = DATE(?1)", nativeQuery = true)
+	public Report findReportByDate(Date queryDate);
 }

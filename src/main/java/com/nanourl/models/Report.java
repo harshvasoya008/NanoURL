@@ -17,9 +17,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nanourl.helpers.Constants;
 
 @Entity
-@Table(name = "reports", schema = "nanourl")
+@Table(name = "reports", schema = Constants.DB_SCHEMA_NAME)
 public class Report {
 
 	/* Fields */

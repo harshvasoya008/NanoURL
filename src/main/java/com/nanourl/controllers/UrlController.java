@@ -41,7 +41,7 @@ public class UrlController {
 		if (longUrl != null) {
 			return new ResponseEntity<Object>(longUrl, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Object>(Constants.MSG_NOT_FOUND, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>(Constants.MSG_URL_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 	}
 
