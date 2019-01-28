@@ -47,7 +47,10 @@ public class ReportController {
 			e.printStackTrace();
 		}
 		
-		Report report = reportService.getReportByDate(queryDate);
+		String[] tempStrings = queryDateString.split("-");
+		queryDateString = tempStrings[2] + "-" + tempStrings[1] + "-" + tempStrings[0];
+		
+		Report report = reportService.getReportByDate(queryDate,queryDateString);
 		if (report != null) {
 			return new ResponseEntity<Object>(report, HttpStatus.OK);
 		} else {

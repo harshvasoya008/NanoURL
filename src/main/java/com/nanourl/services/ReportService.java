@@ -1,14 +1,12 @@
 package com.nanourl.services;
 
 /*
- * Microservices related to Report
+ * Microservices related to Reports
  * 
  * Author: Harsh Vasoya
  */
 
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -37,10 +35,9 @@ public class ReportService {
 	public Report generateReport() {
 
 		Report report = reportDao.findTodayReport();
-		List<BigInteger> queryResult = reportDao.countShortUrlCreatedAndLongUrlAdded();
 
-		report.setNumShortUrlCreated(queryResult.get(0).longValue());
-		report.setNumLongUrlAdded(queryResult.get(1).longValue());
+		report.setNumShortUrlCreated(reportDao.countShortUrlCreated().longValue());
+		report.setNumLongUrlAdded(reportDao.countLongUrlAdded().longValue());
 		report.setNumUniqueClicks(reportDao.countUniqueClicks().longValue());
 
 		report = reportDao.save(report);
@@ -49,12 +46,13 @@ public class ReportService {
 	}
 
 	/* Service which returns the report generated on a particular date */
-	public Report getReportByDate(Date queryDate) {
-		System.out.println(queryDate);
+	public Report getReportByDate(Date queryDate, String dateString) {
+//		System.out.println(queryDate);
 		if (queryDate == null || queryDate.after(new Date()))
 			return null;
 		
-		return reportDao.findReportByDate(queryDate);
+		Report report = reportDao.findReportByDate(dateString);
+		return report;
 	}
 
 }
